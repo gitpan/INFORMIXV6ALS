@@ -1,14 +1,13 @@
 --- #YAML:1.0
-name: INFOMIXV6ALS
-abstract: Source code filter for INFOMIX V6 ALS script
-version: 0.50
+name: INFORMIXV6ALS
+abstract: Source code filter for INFORMIX V6 ALS script
+version: 0.51
 author:
   - INABA Hitoshi <ina@cpan.org>
 license: perl
 distribution_type: script
 requires:
   Archive::Tar: 0.072
-  Carp: 0
   Compress::Zlib: 1.03
   Config: 0
   Fcntl: 1.03
