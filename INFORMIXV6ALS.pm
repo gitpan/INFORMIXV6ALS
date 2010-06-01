@@ -17,9 +17,9 @@ use Einformixv6als;
 # of ISBN 0-596-00313-7 Perl Cookbook, 2nd Edition.
 # (and so on)
 
-BEGIN { eval q{ use vars qw($VERSION) } }
+BEGIN { eval q{ use vars qw($VERSION $_warning) } }
 
-$VERSION = sprintf '%d.%02d', q$Revision: 0.56 $ =~ m/(\d+)/oxmsg;
+$VERSION = sprintf '%d.%02d', q$Revision: 0.57 $ =~ m/(\d+)/oxmsg;
 
 # poor Symbol.pm - substitute of real Symbol.pm
 BEGIN {
@@ -47,6 +47,7 @@ sub LOCK_EX() {2}
 sub LOCK_UN() {8}
 sub LOCK_NB() {4}
 
+$_warning = $^W; # push warning, warning on
 local $^W = 1;
 
 # P.707 29.2.33. exec
@@ -189,250 +190,13 @@ my $ignore_modules = join('|', qw(
     I18N::Collate
     I18N::JExt
     File::DosGlob
+    Wild
     Wildcard
     Japanese
 ));
 
 # in Chapter 8: Standard Modules
 # of ISBN 0-596-00241-6 Perl in a Nutshell, Second Edition
-
-my $standard_modules = join('|', qw(
-    AnyDBM_File
-    Attribute::Handlers
-    attributes
-    attrs
-    AutoLoader
-    AutoSplit
-    autouse
-    B
-    B::Asmdata
-    B::Assembler
-    B::Bblock
-    B::Bytecode
-    B::C
-    B::CC
-    B::Concise
-    B::Debug
-    B::Deparse
-    B::Disassembler
-    B::Lint
-    B::Showlex
-    B::Stackobj
-    B::Terse
-    B::Xref
-    base
-    Benchmark
-    bigint
-    bignum
-    bigrat
-    blib
-    bytes
-    ByteLoader
-    Carp
-    CGI
-    CGI::Apache
-    CGI::Carp
-    CGI::Cookie
-    CGI::Fast
-    CGI::Pretty
-    CGI::Push
-    CGI::Switch
-    charnames
-    Class::ISA
-    Class::Struct
-    Config
-    constant
-    CPAN
-    CPAN::FirstTime
-    CPAN::Nox
-    Cwd
-    Data::Dumper
-    DB
-    DB_File
-    Devel::DProf
-    Devel::PPPort
-    Devel::SelfStubber
-    diagnostics
-    Digest
-    Digest::MD5
-    DirHandle
-    Dumpvalue
-    DynaLoader
-    encoding
-    English
-    Env
-    Errno
-    Exporter
-    ExtUtils::Command
-    ExtUtils::Command::MM
-    ExtUtils::Constant
-    ExtUtils::Embed
-    ExtUtils::Install
-    ExtUtils::Installed
-    ExtUtils::Liblist
-    ExtUtils::MakeMaker
-    ExtUtils::Manifest
-    ExtUtils::Miniperl
-    ExtUtils::Mkbootstrap
-    ExtUtils::Mksymlists
-    ExtUtils::MM
-    ExtUtils::MM_Any
-    ExtUtils::MM_BeOS
-    ExtUtils::MM_DOS
-    ExtUtils::MM_NW5
-    ExtUtils::MM_OS2
-    ExtUtils::MM_Unix
-    ExtUtils::MM_UWIN
-    ExtUtils::MM_VMS
-    ExtUtils::MM_Win32
-    ExtUtils::MY
-    ExtUtils::Packlist
-    ExtUtils::testlib
-    Fatal
-    Fcntl
-    fields
-    File::Basename
-    File::CheckTree
-    File::Compare
-    File::Copy
-    File::DosGlob
-    File::Find
-    File::Path
-    File::Spec
-    File::Spec::Cygwin
-    File::Spec::Mac
-    File::Spec::OS2
-    File::Spec::Unix
-    File::Spec::VMS
-    File::Spec::Win32
-    File::stat
-    File::Temp
-    FileCache
-    FileHandle
-    Filter::Simple 
-    Filter::Util::Call
-    FindBin
-    GDBM_File
-    Getopt::Long
-    Getopt::Std
-    Hash::Util
-    I18N::Collate
-    I18N::Langinfo
-    I18N::LangTags
-    I18N::LangTags::List
-    if
-    integer
-    IO
-    IO::File
-    IO::Handle
-    IO::Pipe
-    IO::Seekable
-    IO::Select
-    IO::Socket
-    IPC::Msg
-    IPC::Open2
-    IPC::Open3
-    IPC::Semaphore
-    IPC::SysV
-    less
-    lib
-    List::Util
-    locale
-    Math::BigFloat
-    Math::BigInt
-    Math::BigInt::Calc
-    Math::BigRat
-    Math::Complex
-    Math::Trig
-    MIME::Base64
-    MIME::QuotedPrint
-    NDBM_File
-    Net::Cmd
-    Net::Config
-    Net::Domain
-    Net::FTP
-    Net::hostent
-    Net::netent
-    Net::Netrc
-    Net::NNTP
-    Net::Ping
-    Net::POP3
-    Net::protoent
-    Net::servent
-    Net::SMTP
-    Net::Time
-    O
-    ODBM_File
-    Opcode
-    ops
-    overload
-    PerlIO
-    PerlIO::Scalar
-    PerlIO::Via
-    Pod::Functions
-    Pod::Html
-    Pod::ParseLink
-    Pod::Text
-    POSIX
-    re
-    Safe
-    Scalar::Util
-    SDBM_File
-    Search::Dict
-    SelectSaver
-    SelfLoader
-    Shell
-    sigtrap
-    Socket
-    sort
-    Storable
-    strict
-    subs
-    Switch
-    Symbol
-    Sys::Hostname
-    Sys::Syslog
-    Term::Cap
-    Term::Complete
-    Term::ReadLine
-    Test
-    Test::Builder
-    Test::Harness
-    Test::More
-    Test::Simple
-    Text::Abbrev
-    Text::Balanced
-    Text::ParseWords
-    Text::Soundex
-    Text::Tabs
-    Text::Wrap
-    Thread
-    Thread::Queue
-    Thread::Semaphore
-    Thread::Signal
-    Thread::Specific
-    Tie::Array
-    Tie::StdArray
-    Tie::File
-    Tie::Handle
-    Tie::Hash
-    Tie::Memoize 
-    Tie::RefHash
-    Tie::Scalar
-    Tie::SubstrHash
-    Time::gmtime
-    Time::HiRes
-    Time::Local
-    Time::localtime
-    Time::tm
-    UNIVERSAL
-    User::grent
-    User::pwent
-    utf8
-    vars
-    vmsish
-    XS::Typemap
-));
 
 # when this script is main program
 if ($0 eq __FILE__) {
@@ -612,48 +376,6 @@ sub INFORMIXV6ALS::escape_script {
                 }
             }
         }
-    }
-
-    # use Tk; --> use INFORMIXV6ALS::Tk::Widget;
-    my $tkmodule = '';
-    for my $widget (qw(
-        Button
-        Canvas
-        Checkbutton
-        Entry
-        Frame
-        Label
-        Listbox
-        MainWindow
-        Message
-        Menu
-        Menubutton
-        Radiobutton
-        Scale
-        Text
-        Toplevel
-    )) {
-        if (m/ $widget /xms) {
-            $tkmodule .= "        eval qq{ use INFORMIXV6ALS::Tk::$widget; };\n";
-        }
-    }
-
-    my $use_tk = <<"USE_TK";
-BEGIN {
-    eval qq{ use INFORMIXV6ALS::Encode; };
-    if (\$] >= 5.007) {
-$tkmodule
-    }
-    else {
-        eval qq{ use INFORMIXV6ALS::Tk::Entry55; };
-        eval qq{ use INFORMIXV6ALS::Tk::MainWindow; };
-    }
-}
-USE_TK
-    if (s/^ (\s* use \s+ Tk [^:;]* ; \s*? \n) /$1$use_tk/oxmsg) {
-        s/ \b (MainWindow \s* -> \s* new) \b /INFORMIXV6ALS::Tk::$1/oxmsg;
-        s/^ (\s* use \s+ )(Tk::(?:Ballon|BrowseEntry|ColorEditor|Dialog|DialogBox|DirTree|FileSelect|HList|ROText|Table|TixGrid|TList|Tree) [^:;]* ; \s*? ) \n /BEGIN { eval qq{ $1$2 ${1}INFORMIXV6ALS::${2} }};\n/oxmsg;
-        s/^ (\s* use \s+ )(Tk::(?:LabFrame) [^:;]*) ; \s*? \n /BEGIN { eval qq{ $1$2; ${1}INFORMIXV6ALS::${2}55; }};\n/oxmsg;
     }
 
     $slash = 'm//';
@@ -897,7 +619,7 @@ sub escape {
     elsif (m{\G \b ( if | unless | while | until | for | when ) \b }oxgc) { $slash = 'm//'; return $1;  }
 
 # functions of package Einformixv6als
-    elsif (m{\G \b (CORE::(?:split|chop|index|rindex|lc|uc|chr|ord|reverse)) \b }oxgc) { $slash = 'm//'; return $1;    }
+    elsif (m{\G \b (CORE::(?:split|chop|index|rindex|lc|uc|chr|ord|reverse|open|binmode)) \b }oxgc) { $slash = 'm//'; return $1; }
     elsif (m{\G \b chop \b          (?! \s* => )              }oxgc) { $slash = 'm//'; return   'Einformixv6als::chop';         }
     elsif (m{\G \b INFORMIXV6ALS::index \b   (?! \s* => )              }oxgc) { $slash = 'm//'; return   'INFORMIXV6ALS::index';         }
     elsif (m{\G \b index \b         (?! \s* => )              }oxgc) { $slash = 'm//'; return   'Einformixv6als::index';        }
@@ -980,7 +702,81 @@ sub escape {
     elsif (m{\G \b opendir (\s* \( \s*) (?=[A-Za-z_])         }oxgc) { $slash = 'm//'; return   "Einformixv6als::opendir$1*";         }
     elsif (m{\G \b opendir (\s+)        (?=[A-Za-z_])         }oxgc) { $slash = 'm//'; return   "Einformixv6als::opendir$1*";         }
     elsif (m{\G \b unlink \b  (?! \s* => )                    }oxgc) { $slash = 'm//'; return   'Einformixv6als::unlink';             }
-    elsif (m{\G \b chdir \b   (?! \s* => )                    }oxgc) { $slash = 'm//'; return   'Einformixv6als::chdir';              }
+
+# chdir
+    elsif (m{\G \b (chdir) \b (?! \s* => ) }oxgc) {
+        $slash = 'm//';
+
+        my $e = 'Einformixv6als::chdir';
+
+        while (/\G ( \s+ | \( | \#.* ) /oxgc) {
+            $e .= $1;
+        }
+
+# end of chdir
+        if    (/\G (?= [,;\)\}\]] )          /oxgc) { return $e;                 }
+
+# chdir scalar value
+        elsif (/\G ( [\$\@\&\*] $qq_scalar ) /oxgc) { return $e . e_string($1);  }
+
+# chdir qq//
+        elsif (/\G \b (qq) \b /oxgc) {
+            if (/\G (\#) ((?:$qq_char)*?) (\#) /oxgc)                        { return $e . e_chdir('qq',$1,$3,$2);   } # qq# #  --> qr # #
+            else {
+                while (not /\G \z/oxgc) {
+                    if    (/\G (\s+|\#.*)                             /oxgc) { $e .= $1; }
+                    elsif (/\G (\()          ((?:$qq_paren)*?)   (\)) /oxgc) { return $e . e_chdir('qq',$1,$3,$2);   } # qq ( ) --> qr ( )
+                    elsif (/\G (\{)          ((?:$qq_brace)*?)   (\}) /oxgc) { return $e . e_chdir('qq',$1,$3,$2);   } # qq { } --> qr { }
+                    elsif (/\G (\[)          ((?:$qq_bracket)*?) (\]) /oxgc) { return $e . e_chdir('qq',$1,$3,$2);   } # qq [ ] --> qr [ ]
+                    elsif (/\G (\<)          ((?:$qq_angle)*?)   (\>) /oxgc) { return $e . e_chdir('qq',$1,$3,$2);   } # qq < > --> qr < >
+                    elsif (/\G ([*\-:?\\^|]) ((?:$qq_char)*?)    (\1) /oxgc) { return $e . e_chdir('qq','{','}',$2); } # qq | | --> qr { }
+                    elsif (/\G (\S)          ((?:$qq_char)*?)    (\1) /oxgc) { return $e . e_chdir('qq',$1,$3,$2);   } # qq * * --> qr * *
+                }
+                die "$__FILE__: Can't find string terminator anywhere before EOF";
+            }
+        }
+
+# chdir q//
+        elsif (/\G \b (q) \b /oxgc) {
+            if (/\G (\#) ((?:\\\#|\\\\|$q_char)*?) (\#) /oxgc)                    { return $e . e_chdir_q('q',$1,$3,$2);   } # q# #  --> qr # #
+            else {
+                while (not /\G \z/oxgc) {
+                    if    (/\G (\s+|\#.*)                                  /oxgc) { $e .= $1; }
+                    elsif (/\G (\() ((?:\\\\|\\\)|\\\(|$q_paren)*?)   (\)) /oxgc) { return $e . e_chdir_q('q',$1,$3,$2);   } # q ( ) --> qr ( )
+                    elsif (/\G (\{) ((?:\\\\|\\\}|\\\{|$q_brace)*?)   (\}) /oxgc) { return $e . e_chdir_q('q',$1,$3,$2);   } # q { } --> qr { }
+                    elsif (/\G (\[) ((?:\\\\|\\\]|\\\[|$q_bracket)*?) (\]) /oxgc) { return $e . e_chdir_q('q',$1,$3,$2);   } # q [ ] --> qr [ ]
+                    elsif (/\G (\<) ((?:\\\\|\\\>|\\\<|$q_angle)*?)   (\>) /oxgc) { return $e . e_chdir_q('q',$1,$3,$2);   } # q < > --> qr < >
+                    elsif (/\G ([*\-:?\\^|])       ((?:$q_char)*?)    (\1) /oxgc) { return $e . e_chdir_q('q','{','}',$2); } # q | | --> qr { }
+                    elsif (/\G (\S) ((?:\\\\|\\\1|     $q_char)*?)    (\1) /oxgc) { return $e . e_chdir_q('q',$1,$3,$2);   } # q * * --> qr * *
+                }
+                die "$__FILE__: Can't find string terminator anywhere before EOF";
+            }
+        }
+
+# chdir ''
+        elsif (/\G (\') /oxgc) {
+            my $q_string = '';
+            while (not /\G \z/oxgc) {
+                if    (/\G (\\\\)    /oxgc) { $q_string .= $1; }
+                elsif (/\G (\\\')    /oxgc) { $q_string .= $1; }
+                elsif (/\G \'        /oxgc)                                       { return $e . e_chdir_q('',"'","'",$q_string); }
+                elsif (/\G ($q_char) /oxgc) { $q_string .= $1; }
+            }
+            die "$__FILE__: Can't find string terminator anywhere before EOF";
+        }
+
+# chdir ""
+        elsif (/\G (\") /oxgc) {
+            my $qq_string = '';
+            while (not /\G \z/oxgc) {
+                if    (/\G (\\\\)    /oxgc) { $qq_string .= $1; }
+                elsif (/\G (\\\")    /oxgc) { $qq_string .= $1; }
+                elsif (/\G \"        /oxgc)                                       { return $e . e_chdir('','"','"',$qq_string); }
+                elsif (/\G ($q_char) /oxgc) { $qq_string .= $1; }
+            }
+            die "$__FILE__: Can't find string terminator anywhere before EOF";
+        }
+    }
 
 # split
     elsif (m{\G \b (split) \b (?! \s* => ) }oxgc) {
@@ -1629,9 +1425,6 @@ sub escape {
 # require ignore module
     elsif (/\G \b require \s+ ($ignore_modules) \b              /oxmsgc) { return "# require $1";    }
 
-# require standard module
-    elsif (/\G \b require \s+ ($standard_modules) \b            /oxmsgc) { return "require $1";      }
-
 # require
     elsif (/\G \b require \s+ (v? [0-9]+(?: [._][0-9]+)*) \s* ; /oxmsgc) { return "require $1;";     }
     elsif (/\G \b require \s+ (\w+(?: ::\w+)*)            \s* ; /oxmsgc) { return e_require($1);     }
@@ -1640,9 +1433,6 @@ sub escape {
 
 # use ignore module
     elsif (/\G \b use \s+ ($ignore_modules) \b                                        /oxmsgc) { return "# use $1";         }
-
-# use standard module
-    elsif (/\G \b use \s+ ($standard_modules) \b                                      /oxmsgc) { return "use $1";           }
 
 # use without import
     elsif (/\G \b use \s+ (v? [0-9]+(?: [._][0-9]+)*)                           \s* ; /oxmsgc) { return "use $1;";          }
@@ -1654,8 +1444,21 @@ sub escape {
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* ([\x21-\x3F]) \s* \2 \s* ; /oxmsgc) { return e_use_noimport($1); }
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\S)          \s* \2 \s* ; /oxmsgc) { return e_use_noimport($1); }
 
+# no without unimport
+    elsif (/\G \b no  \s+ (v? [0-9]+(?: [._][0-9]+)*)                           \s* ; /oxmsgc) { return "no $1;";          }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s*        (\()          \s* \) \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\()          \s* \) \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\{)          \s* \} \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\[)          \s* \] \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\<)          \s* \> \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* ([\x21-\x3F]) \s* \2 \s* ; /oxmsgc) { return e_no_nounimport($1); }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ qw \s* (\S)          \s* \2 \s* ; /oxmsgc) { return e_no_nounimport($1); }
+
 # use with import no parameter
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*)                                 \s* ; /oxmsgc) { return e_use_noparam($1);  }
+
+# no with unimport no parameter
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*)                                 \s* ; /oxmsgc) { return e_no_noparam($1);   }
 
 # use with import parameters
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s* (                (\()          [^)]*         \)) \s* ; /oxmsgc) { return e_use($1,$2); }
@@ -1667,6 +1470,17 @@ sub escape {
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\<)          [^>]*         \>) \s* ; /oxmsgc) { return e_use($1,$2); }
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* ([\x21-\x3F]) .*?           \3) \s* ; /oxmsgc) { return e_use($1,$2); }
     elsif (/\G \b use \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\S)          (?:$q_char)*? \3) \s* ; /oxmsgc) { return e_use($1,$2); }
+
+# no with unimport parameters
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s* (                (\()          [^)]*         \)) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s* (                (\')          [^']*         \') \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s* (                (\")          [^"]*         \") \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\()          [^)]*         \)) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\{)          (?:$q_char)*? \}) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\[)          (?:$q_char)*? \]) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\<)          [^>]*         \>) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* ([\x21-\x3F]) .*?           \3) \s* ; /oxmsgc) { return e_no($1,$2);  }
+    elsif (/\G \b no  \s+ ([A-Z]\w*(?: ::\w+)*) \s+ ((?:q|qq|qw) \s* (\S)          (?:$q_char)*? \3) \s* ; /oxmsgc) { return e_no($1,$2);  }
 
 # ''
     elsif (/\G (?<![\w\$\@\%\&\*]) (\') /oxgc) {
@@ -2036,7 +1850,7 @@ E_STRING_LOOP:
         }
 
 # functions of package Einformixv6als
-        elsif ($string =~ m{\G \b (CORE::(?:split|chop|index|rindex|lc|uc|chr|ord|reverse)) \b }oxgc) { $e_string .= $1;     $slash = 'm//'; }
+        elsif ($string =~ m{\G \b (CORE::(?:split|chop|index|rindex|lc|uc|chr|ord|reverse|open|binmode)) \b }oxgc) { $e_string .= $1; $slash = 'm//'; }
         elsif ($string =~ m{\G \b chop \b                                    }oxgc) { $e_string .=   'Einformixv6als::chop';          $slash = 'm//'; }
         elsif ($string =~ m{\G \b INFORMIXV6ALS::index \b                             }oxgc) { $e_string .=   'INFORMIXV6ALS::index';          $slash = 'm//'; }
         elsif ($string =~ m{\G \b index \b                                   }oxgc) { $e_string .=   'Einformixv6als::index';         $slash = 'm//'; }
@@ -2111,7 +1925,81 @@ E_STRING_LOOP:
         elsif ($string =~ m{\G \b opendir (\s* \( \s*) (?=[A-Za-z_])         }oxgc) { $e_string .=   "Einformixv6als::opendir$1*";        $slash = 'm//'; }
         elsif ($string =~ m{\G \b opendir (\s+)        (?=[A-Za-z_])         }oxgc) { $e_string .=   "Einformixv6als::opendir$1*";        $slash = 'm//'; }
         elsif ($string =~ m{\G \b unlink \b                                  }oxgc) { $e_string .=   'Einformixv6als::unlink';            $slash = 'm//'; }
-        elsif ($string =~ m{\G \b chdir \b                                   }oxgc) { $e_string .=   'Einformixv6als::chdir';             $slash = 'm//'; }
+
+# chdir
+        elsif ($string =~ m{\G \b (chdir) \b (?! \s* => ) }oxgc) {
+            $slash = 'm//';
+
+            my $e_string = 'Einformixv6als::chdir';
+
+            while ($string =~ /\G ( \s+ | \( | \#.* ) /oxgc) {
+                $e_string .= $1;
+            }
+
+# end of chdir
+            if    ($string =~ /\G (?= [,;\)\}\]] )          /oxgc) { return $e_string;                               }
+
+# chdir scalar value
+            elsif ($string =~ /\G ( [\$\@\&\*] $qq_scalar ) /oxgc) { $e_string .= e_string($1);  next E_STRING_LOOP; }
+
+# chdir qq//
+            elsif ($string =~ /\G \b (qq) \b /oxgc) {
+                if ($string =~ /\G (\#) ((?:$qq_char)*?) (\#) /oxgc)                             { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq# #  --> qr # #
+                else {
+                    while ($string !~ /\G \z/oxgc) {
+                        if    ($string =~ /\G (\s+|\#.*)                             /oxgc)      { $e_string .= $1; }
+                        elsif ($string =~ /\G (\()          ((?:$qq_paren)*?)   (\)) /oxgc)      { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq ( ) --> qr ( )
+                        elsif ($string =~ /\G (\{)          ((?:$qq_brace)*?)   (\}) /oxgc)      { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq { } --> qr { }
+                        elsif ($string =~ /\G (\[)          ((?:$qq_bracket)*?) (\]) /oxgc)      { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq [ ] --> qr [ ]
+                        elsif ($string =~ /\G (\<)          ((?:$qq_angle)*?)   (\>) /oxgc)      { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq < > --> qr < >
+                        elsif ($string =~ /\G ([*\-:?\\^|]) ((?:$qq_char)*?)    (\1) /oxgc)      { $e_string .= e_chdir('qq','{','}',$2); next E_STRING_LOOP; } # qq | | --> qr { }
+                        elsif ($string =~ /\G (\S)          ((?:$qq_char)*?)    (\1) /oxgc)      { $e_string .= e_chdir('qq',$1,$3,$2);   next E_STRING_LOOP; } # qq * * --> qr * *
+                    }
+                    die "$__FILE__: Can't find string terminator anywhere before EOF";
+                }
+            }
+
+# chdir q//
+            elsif ($string =~ /\G \b (q) \b /oxgc) {
+                if ($string =~ /\G (\#) ((?:\\\#|\\\\|$q_char)*?) (\#) /oxgc)                    { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q# #  --> qr # #
+                else {
+                    while ($string !~ /\G \z/oxgc) {
+                        if    ($string =~ /\G (\s+|\#.*)                                  /oxgc) { $e_string .= $1; }
+                        elsif ($string =~ /\G (\() ((?:\\\\|\\\)|\\\(|$q_paren)*?)   (\)) /oxgc) { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q ( ) --> qr ( )
+                        elsif ($string =~ /\G (\{) ((?:\\\\|\\\}|\\\{|$q_brace)*?)   (\}) /oxgc) { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q { } --> qr { }
+                        elsif ($string =~ /\G (\[) ((?:\\\\|\\\]|\\\[|$q_bracket)*?) (\]) /oxgc) { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q [ ] --> qr [ ]
+                        elsif ($string =~ /\G (\<) ((?:\\\\|\\\>|\\\<|$q_angle)*?)   (\>) /oxgc) { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q < > --> qr < >
+                        elsif ($string =~ /\G ([*\-:?\\^|])       ((?:$q_char)*?)    (\1) /oxgc) { $e_string .= e_chdir_q('q','{','}',$2); next E_STRING_LOOP; } # q | | --> qr { }
+                        elsif ($string =~ /\G (\S) ((?:\\\\|\\\1|     $q_char)*?)    (\1) /oxgc) { $e_string .= e_chdir_q('q',$1,$3,$2);   next E_STRING_LOOP; } # q * * --> qr * *
+                    }
+                    die "$__FILE__: Can't find string terminator anywhere before EOF";
+                }
+            }
+
+# chdir ''
+            elsif ($string =~ /\G (\') /oxgc) {
+                my $q_string = '';
+                while ($string !~ /\G \z/oxgc) {
+                    if    ($string =~ /\G (\\\\)    /oxgc) { $q_string .= $1; }
+                    elsif ($string =~ /\G (\\\')    /oxgc) { $q_string .= $1; }
+                    elsif ($string =~ /\G \'        /oxgc)                                       { $e_string .= e_chdir_q('',"'","'",$q_string); next E_STRING_LOOP; }
+                    elsif ($string =~ /\G ($q_char) /oxgc) { $q_string .= $1; }
+                }
+                die "$__FILE__: Can't find string terminator anywhere before EOF";
+            }
+
+# chdir ""
+            elsif ($string =~ /\G (\") /oxgc) {
+                my $qq_string = '';
+                while ($string !~ /\G \z/oxgc) {
+                    if    ($string =~ /\G (\\\\)    /oxgc) { $qq_string .= $1; }
+                    elsif ($string =~ /\G (\\\")    /oxgc) { $qq_string .= $1; }
+                    elsif ($string =~ /\G \"        /oxgc)                                       { $e_string .= e_chdir('','"','"',$qq_string); next E_STRING_LOOP; }
+                    elsif ($string =~ /\G ($q_char) /oxgc) { $qq_string .= $1; }
+                }
+                die "$__FILE__: Can't find string terminator anywhere before EOF";
+            }
+        }
 
 # split
         elsif ($string =~ m{\G \b (split) \b (?! \s* => ) }oxgc) {
@@ -3892,6 +3780,50 @@ sub e_sub {
 }
 
 #
+# escape chdir (q//, '')
+#
+sub e_chdir_q {
+    my($ope,$delimiter,$end_delimiter,$string) = @_;
+
+    if ($_warning) {
+        if (Einformixv6als::_MSWin32_5Cended_path($string)) {
+            if ($] !~ /^5\.005/) {
+                warn <<END;
+$__FILE__: Can't chdir to '$string'
+
+chdir does not work with chr(0x5C) at end of path
+http://bugs.activestate.com/show_bug.cgi?id=81839
+END
+            }
+        }
+    }
+
+    return e_q($ope,$delimiter,$end_delimiter,$string);
+}
+
+#
+# escape chdir (qq//, "")
+#
+sub e_chdir {
+    my($ope,$delimiter,$end_delimiter,$string) = @_;
+
+    if ($_warning) {
+        if (Einformixv6als::_MSWin32_5Cended_path($string)) {
+            if ($] !~ /^5\.005/) {
+                warn <<END;
+$__FILE__: Can't chdir to '$string'
+
+chdir does not work with chr(0x5C) at end of path
+http://bugs.activestate.com/show_bug.cgi?id=81839
+END
+            }
+        }
+    }
+
+    return e_qq($ope,$delimiter,$end_delimiter,$string);
+}
+
+#
 # escape regexp of split qr//
 #
 sub e_split {
@@ -4274,7 +4206,7 @@ sub e_use_noimport {
         if (open($fh, $realfilename)) {
             local $/ = undef; # slurp mode
             my $script = <$fh>;
-            close($fh) or die "Can't close file: $realfilename";
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
 
             if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
                 return qq<BEGIN { Einformixv6als::require '$expr'; }>;
@@ -4284,6 +4216,35 @@ sub e_use_noimport {
     }
 
     return qq<use $module ();>;
+}
+
+#
+# escape no without unimport
+#
+sub e_no_nounimport {
+    my($module) = @_;
+
+    my $expr = $module;
+    $expr =~ s#::#/#g;
+    $expr .= '.pm' if $expr !~ m/ \.pm \z/oxmsi;
+
+    my $fh = gensym();
+    for my $prefix (@INC) {
+        my $realfilename = "$prefix/$expr";
+
+        if (open($fh, $realfilename)) {
+            local $/ = undef; # slurp mode
+            my $script = <$fh>;
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
+
+            if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
+                return qq<BEGIN { Einformixv6als::require '$expr'; }>;
+            }
+            last;
+        }
+    }
+
+    return qq<no $module ();>;
 }
 
 #
@@ -4303,7 +4264,7 @@ sub e_use_noparam {
         if (open($fh, $realfilename)) {
             local $/ = undef; # slurp mode
             my $script = <$fh>;
-            close($fh) or die "Can't close file: $realfilename";
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
 
             if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
 
@@ -4319,6 +4280,41 @@ sub e_use_noparam {
     }
 
     return qq<use $module;>;
+}
+
+#
+# escape no with unimport no parameter
+#
+sub e_no_noparam {
+    my($module) = @_;
+
+    my $expr = $module;
+    $expr =~ s#::#/#g;
+    $expr .= '.pm' if $expr !~ m/ \.pm \z/oxmsi;
+
+    my $fh = gensym();
+    for my $prefix (@INC) {
+        my $realfilename = "$prefix/$expr";
+
+        if (open($fh, $realfilename)) {
+            local $/ = undef; # slurp mode
+            my $script = <$fh>;
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
+
+            if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
+
+                # P.326 UNIVERSAL: The Ultimate Ancestor Class
+                # in Chapter 12: Objects
+                # of ISBN 0-596-00027-8 Programming Perl Third Edition.
+                # (and so on)
+
+                return qq[BEGIN { Einformixv6als::require '$expr'; $module->unimport() if $module->can('unimport'); }];
+            }
+            last;
+        }
+    }
+
+    return qq<no $module;>;
 }
 
 #
@@ -4338,7 +4334,7 @@ sub e_use {
         if (open($fh, $realfilename)) {
             local $/ = undef; # slurp mode
             my $script = <$fh>;
-            close($fh) or die "Can't close file: $realfilename";
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
 
             if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
                 return qq[BEGIN { Einformixv6als::require '$expr'; $module->import($list) if $module->can('import'); }];
@@ -4348,6 +4344,35 @@ sub e_use {
     }
 
     return qq<use $module $list;>;
+}
+
+#
+# escape no with unimport parameters
+#
+sub e_no {
+    my($module,$list) = @_;
+
+    my $expr = $module;
+    $expr =~ s#::#/#g;
+    $expr .= '.pm' if $expr !~ m/ \.pm \z/oxmsi;
+
+    my $fh = gensym();
+    for my $prefix (@INC) {
+        my $realfilename = "$prefix/$expr";
+
+        if (open($fh, $realfilename)) {
+            local $/ = undef; # slurp mode
+            my $script = <$fh>;
+            close($fh) or die "$__FILE__: Can't close file: $realfilename";
+
+            if ($script =~ m/^ \s* use \s+ INFORMIXV6ALS \s* ([^;]*) ; \s* \n? $/oxms) {
+                return qq[BEGIN { Einformixv6als::require '$expr'; $module->unimport($list) if $module->can('unimport'); }];
+            }
+            last;
+        }
+    }
+
+    return qq<no $module $list;>;
 }
 
 1;
@@ -4367,14 +4392,6 @@ INFORMIXV6ALS - "Yet Another JPerl" Source code filter to escape INFORMIX V6 ALS
   use INFORMIXV6ALS qw(ord reverse); --- demand enhanced feature of ord and reverse
   use INFORMIXV6ALS version qw(ord reverse);
 
-  functions:
-    INFORMIXV6ALS::ord(...);
-    INFORMIXV6ALS::reverse(...);
-    INFORMIXV6ALS::length(...);
-    INFORMIXV6ALS::substr(...);
-    INFORMIXV6ALS::index(...);
-    INFORMIXV6ALS::rindex(...);
-
   # "no INFORMIXV6ALS;" not supported
 
   or
@@ -4383,6 +4400,14 @@ INFORMIXV6ALS - "Yet Another JPerl" Source code filter to escape INFORMIX V6 ALS
 
   INFORMIX V6 ALS_script.pl  --- script written in INFORMIX V6 ALS
   Escaped_script.pl.e --- escaped script
+
+  functions:
+    INFORMIXV6ALS::ord(...);
+    INFORMIXV6ALS::reverse(...);
+    INFORMIXV6ALS::length(...);
+    INFORMIXV6ALS::substr(...);
+    INFORMIXV6ALS::index(...);
+    INFORMIXV6ALS::rindex(...);
 
 =head1 ABSTRACT
 
@@ -4491,149 +4516,206 @@ I am glad that I could confirm my idea is not so wrong.
    perl512.bat      --- find and run perl5.12 without %PATH% settings
    perl64.bat       --- find and run perl64   without %PATH% settings
 
-=head1 CHARACTER CLASSES
+=head1 Upper Compatibility By Escaping
+
+This software adds the function by 'Escaping' it always, and nothing of the
+past is broken. Therefore, 'Possible job' never becomes 'Impossible job'.
+This approach is effective in the field where the retreat is never permitted.
+Modern Perl/perl can not always solve the problem.
+
+=head1 Escaping Your Script (You do)
+
+You need write 'use INFORMIXV6ALS;' in your script.
+
+  ---------------------------------
+  Before      After
+  ---------------------------------
+  use utf8;   use INFORMIXV6ALS;
+  ---------------------------------
+
+=head1 Escaping Multiple Octet Code (INFORMIXV6ALS software provides)
+
+Insert chr(0x5c) before  @  [  \  ]  ^  `  {  |  and  }  in multiple octet of
+
+=over 2
+
+=item * string in single quote ('', q{}, <<'END' and qw{})
+
+=item * string in double quote ("", qq{}, <<END, <<"END", ``, qx{} and <<`END`)
+
+=item * regexp in single quote (m'', s''', split(''), split(m'') and qr'')
+
+=item * regexp in double quote (//, m//, ??, s///, split(//), split(m//) and qr//)
+
+=item * character in tr/// (tr/// and y///)
+
+=back
+
+  ex. Japanese Katakana "SO" like [ `/ ] code is "\x83\x5C"
+ 
+                  see     hex dump
+  -----------------------------------------
+  source script   "`/"    [83 5c]
+  -----------------------------------------
+ 
+  Here, use INFORMIXV6ALS;
+                          hex dump
+  -----------------------------------------
+  escaped script  "`\/"   [83 [5c] 5c]
+  -----------------------------------------
+                    ^--- escape by INFORMIXV6ALS software
+ 
+  by the by       see     hex dump
+  -----------------------------------------
+  your eye's      "`/\"   [83 5c] [5c]
+  -----------------------------------------
+  perl eye's      "`\/"   [83] \[5c]
+  -----------------------------------------
+ 
+                          hex dump
+  -----------------------------------------
+  in the perl     "`/"    [83] [5c]
+  -----------------------------------------
+
+=head1 Escaping Character Classes (INFORMIXV6ALS software provides)
 
 The character classes are redefined as follows to backward compatibility.
 
   ---------------------------------------------------------------------------
-  escape        class
+  Before      After
   ---------------------------------------------------------------------------
-  \d            [0-9]
-  \s            [\x09\x0A\x0C\x0D\x20]
-  \w            [0-9A-Z_a-z]
-  \D            (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9])
-  \S            (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x09\x0A\x0C\x0D\x20])
-  \W            (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z])
-  \h            [\x09\x20]
-  \v            [\x0C\x0A\x0D]
-  \H            (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x09\x20])
-  \V            (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x0C\x0A\x0D])
+   .          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x0A])
+              (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[\x00-\xFF]) (/s modifier)
+  \d          [0-9]
+  \s          [\x09\x0A\x0C\x0D\x20]
+  \w          [0-9A-Z_a-z]
+  \D          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9])
+  \S          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x09\x0A\x0C\x0D\x20])
+  \W          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z])
+  \h          [\x09\x20]
+  \v          [\x0C\x0A\x0D]
+  \H          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x09\x20])
+  \V          (?:\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^\x0C\x0A\x0D])
   ---------------------------------------------------------------------------
 
 Also \b and \B are redefined as follows to backward compatibility.
 
   ---------------------------------------------------------------------------
-  escape        class
+  Before      After
   ---------------------------------------------------------------------------
-  \b            (?:(?:\A|(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=[0-9A-Z_a-z])|(?<=[0-9A-Z_a-z])(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]|\z))
-  \B            (?:(?<=[0-9A-Z_a-z])(?=[0-9A-Z_a-z])|(?:(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]))
+  \b          (?:(?:\A|(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=[0-9A-Z_a-z])|(?<=[0-9A-Z_a-z])(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]|\z))
+  \B          (?:(?<=[0-9A-Z_a-z])(?=[0-9A-Z_a-z])|(?:(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]))
   ---------------------------------------------------------------------------
 
-=head1 JPerl COMPATIBLE FUNCTIONS
+=head1 Escaping Built-in Functions (INFORMIXV6ALS software provides)
 
-The following functions function as much as JPerl.
-A part of function in the script is written and changes by this software.
+Insert 'Einformixv6als::' at head of function name. Einformixv6als.pm provides your script Einformixv6als::*
+functions.
 
-=over 2
+  ---------------------------------
+  Before      After
+  ---------------------------------
+  length      length
+  substr      substr
+  pos         pos
+  split       Einformixv6als::split
+  tr///       Einformixv6als::tr
+  tr///b      tr///
+  tr///B      tr///
+  y///        Einformixv6als::tr
+  y///b       tr///
+  y///B       tr///
+  chop        Einformixv6als::chop
+  index       Einformixv6als::index
+  rindex      Einformixv6als::rindex
+  lc          Einformixv6als::lc
+  uc          Einformixv6als::uc
+  chr         Einformixv6als::chr
+  glob        Einformixv6als::glob
+  lstat       Einformixv6als::lstat
+  opendir     Einformixv6als::opendir
+  stat        Einformixv6als::stat
+  unlink      Einformixv6als::unlink
+  chdir       Einformixv6als::chdir
+  do          Einformixv6als::do
+  require     Einformixv6als::require
+  ---------------------------------
 
-=item * handle multiple octet string in single quote
+  ------------------------------------------------------------------------------------------------------------------------
+  Before                   After
+  ------------------------------------------------------------------------------------------------------------------------
+  use Perl::Module;        BEGIN { Einformixv6als::require 'Perl/Module.pm'; Perl::Module->import() if Perl::Module->can('import'); }
+  use Perl::Module @list;  BEGIN { Einformixv6als::require 'Perl/Module.pm'; Perl::Module->import(@list) if Perl::Module->can('import'); }
+  use Perl::Module ();     BEGIN { Einformixv6als::require 'Perl/Module.pm'; }
+  no Perl::Module;         BEGIN { Einformixv6als::require 'Perl/Module.pm'; Perl::Module->unimport() if Perl::Module->can('unimport'); }
+  no Perl::Module @list;   BEGIN { Einformixv6als::require 'Perl/Module.pm'; Perl::Module->unimport(@list) if Perl::Module->can('unimport'); }
+  no Perl::Module ();      BEGIN { Einformixv6als::require 'Perl/Module.pm'; }
+  ------------------------------------------------------------------------------------------------------------------------
 
-=item * handle multiple octet string in double quote
+=head1 Escaping File Test Operators (INFORMIXV6ALS software provides)
 
-=item * handle multiple octet regexp in single quote
+Insert 'Einformixv6als::' instead of '-' of operator.
 
-=item * handle multiple octet regexp in double quote
+  ---------------------------------
+  Before      After
+  ---------------------------------
+  -r          Einformixv6als::r
+  -w          Einformixv6als::w
+  -x          Einformixv6als::x
+  -o          Einformixv6als::o
+  -R          Einformixv6als::R
+  -W          Einformixv6als::W
+  -X          Einformixv6als::X
+  -O          Einformixv6als::O
+  -e          Einformixv6als::e
+  -z          Einformixv6als::z
+  -f          Einformixv6als::f
+  -d          Einformixv6als::d
+  -l          Einformixv6als::l
+  -p          Einformixv6als::p
+  -S          Einformixv6als::S
+  -b          Einformixv6als::b
+  -c          Einformixv6als::c
+  -t          Einformixv6als::t
+  -u          Einformixv6als::u
+  -g          Einformixv6als::g
+  -k          Einformixv6als::k
+  -T          Einformixv6als::T
+  -B          Einformixv6als::B
+  -s          Einformixv6als::s
+  -M          Einformixv6als::M
+  -A          Einformixv6als::A
+  -C          Einformixv6als::C
+  ---------------------------------
 
-=item * chop --> Einformixv6als::chop
+=head1 Escaping Function Name (You do)
 
-=item * split --> Einformixv6als::split
+You need write 'INFORMIXV6ALS::' at head of function name when you want character
+oriented function. See 'CHARACTER ORIENTED FUNCTIONS'.
 
-=item * length
+  ---------------------------------
+  Before      After
+  ---------------------------------
+  ord         INFORMIXV6ALS::ord
+  reverse     INFORMIXV6ALS::reverse
+  length      INFORMIXV6ALS::length
+  substr      INFORMIXV6ALS::substr
+  index       INFORMIXV6ALS::index
+  rindex      INFORMIXV6ALS::rindex
+  ---------------------------------
 
-=item * substr
+=head1 Escaping Built-in Standard Module (INFORMIXV6ALS software provides)
 
-=item * index --> Einformixv6als::index
+Einformixv6als.pm does "BEGIN { unshift @INC, '/Perl/site/lib/INFORMIXV6ALS' }" at head.
+Store the standard module modified for INFORMIXV6ALS software in this directory to
+override built-in standard modules.
 
-=item * rindex --> Einformixv6als::rindex
+=head1 Escaping Standard Module Content (You do)
 
-=item * pos
+You need copy built-in standard module to /Perl/site/lib/INFORMIXV6ALS and change
+'use utf8;' to 'use INFORMIXV6ALS;' in its. You need help yourself for now.
 
-=item * lc --> Einformixv6als::lc or Einformixv6als::lc_
-
-=item * uc --> Einformixv6als::uc or Einformixv6als::uc_
-
-=item * ord (when no import)
-
-=item * reverse (when no import)
-
-=item * tr/// or y/// --> Einformixv6als::tr
-
-/b and /B modifier can also be used.
-
-=item * chdir --> Einformixv6als::chdir
-
-support chr(0x5C) ended path on only perl5.005 if MSWin32.
-
-=item * do --> Einformixv6als::do
-
-=item * require --> Einformixv6als::require
-
-=item * use Perl::Module @list; --> BEGIN { Einformixv6als::require 'Perl/Module.pm'; Perl::Module->import(@list) if Perl::Module->can('import'); }
-
-=item * use Perl::Module (); --> BEGIN { Einformixv6als::require 'Perl/Module.pm'; }
-
-=back
-
-=head1 JPerl UPPER COMPATIBLE FUNCTIONS
-
-The following functions are enhanced more than JPerl.
-
-=over 2
-
-=item * chr --> Einformixv6als::chr or Einformixv6als::chr_
-
-multiple octet code can also be handled.
-
-=item * -X --> Einformixv6als::X or Einformixv6als::X_
-
-support chr(0x5C) ended path on MSWin32.
-
-=item * glob --> Einformixv6als::glob or Einformixv6als::glob_
-
-  @glob = Einformixv6als::glob($string);
-  @glob = Einformixv6als::glob_;
-
-Einformixv6als::glob provides a portable enhanced DOS-like globbing for the INFORMIXV6ALS software.
-Einformixv6als::glob lets you use wildcards in directory paths, is case-insensitive, and
-accepts both backslashes and forward slashes (although you may have to double the
-backslashes).
-
-From a Perl script:
-
-use INFORMIXV6ALS;
-@perlfiles = glob  "..\pe?l/*.p?";
-print <..\pe?l/*.p?>;
-
-a tilde ("~") expands to the current user's home directory.
-support chr(0x5C) ended path on MSWin32.
-
-=item * lstat --> Einformixv6als::lstat or Einformixv6als::lstat_
-
-support chr(0x5C) ended path on MSWin32.
-
-=item * opendir --> Einformixv6als::opendir
-
-support chr(0x5C) ended path on MSWin32.
-
-=item * stat --> Einformixv6als::stat or Einformixv6als::stat_
-
-support chr(0x5C) ended path on MSWin32.
-
-=item * unlink --> Einformixv6als::unlink
-
-support chr(0x5C) ended path on MSWin32.
-
-=item * ord --> INFORMIXV6ALS::ord or INFORMIXV6ALS::ord_
-
-multiple octet code can also be handled when "use INFORMIXV6ALS qw(ord);".
-It means not compatible with JPerl.
-
-=item * reverse --> INFORMIXV6ALS::reverse
-
-multiple octet code can also be handled in scalar context when "use INFORMIXV6ALS qw(reverse);".
-It means not compatible with JPerl.
-
-=back
+Back to and see 'Escaping Your Script'. Enjoy hacking!!
 
 =head1 CHARACTER ORIENTED FUNCTIONS
 
@@ -4798,7 +4880,14 @@ Bug #81839
 chdir does not work with chr(0x5C) at end of path
 http://bugs.activestate.com/show_bug.cgi?id=81839
 
-=back
+=item * Look-behind Assertion
+
+The look-behind assertion like (?<=[A-Z]) is not prevented from matching trail
+octet of the previous multiple octet code.
+
+=item * INFORMIXV6ALS::substr as lvalue
+
+INFORMIXV6ALS::substr differs from CORE::substr, and cannot be used as a lvalue.
 
 =item * Special variables $` and $& doesn't function
 
@@ -4833,13 +4922,13 @@ http://bugs.activestate.com/show_bug.cgi?id=81839
 
   $1 does function instead of $&.
 
+=back
+
 =head1 AUTHOR
 
 INABA Hitoshi E<lt>ina@cpan.orgE<gt>
 
 This project was originated by INABA Hitoshi.
-For any questions, use E<lt>ina@cpan.orgE<gt> so we can share
-this file.
 
 =head1 LICENSE AND COPYRIGHT
 
@@ -4950,22 +5039,23 @@ Perl should remain one language, rather than forking into a
 byte-oriented Perl and a character-oriented Perl.
 
 JPerl forked the perl interpreter so as not to fork the Perl language.
-But the Perl core team might not hope for the perl interpreter's
-divergence.
+But the Perl core team might not hope for the perl interpreter's fork.
+As a result, the Perl language forked, and the community was reduced
+through necessity.
 
-A character-oriented Perl is not necessary to make it specially,
-because a byte-oriented Perl can already treat the binary data.
+A character-oriented perl is not necessary to make it specially,
+because a byte-oriented perl can already treat the binary data.
 This software is only an application program of Perl, a filter program.
 If perl can be executed, this software will be able to be executed.
 
-And when you solve the problem by the perl script, the perl community
-will support you.
+And you will get support from the Perl community, when you solve the
+problem by the Perl script.
 
 =item Goal #5:
 
 JPerl users will be able to maintain JPerl by Perl.
 
---- maybe, and sure.
+May the JPerl be with you, always.
 
 =back
 
@@ -5118,6 +5208,7 @@ I am thankful to all persons.
 
  SADAHIRO Tomoyuki, The right way of using Shift_JIS
  http://homepage1.nifty.com/nomenclator/perl/shiftjis.htm
+ http://search.cpan.org/dist/INFORMIX V6 ALS-Regexp/
 
  Yukihiro "Matz" Matsumoto, YAPC::Asia2006 Ruby on Perl(s)
  http://www.rubyist.net/~matz/slides/yapc2006/
@@ -5143,6 +5234,11 @@ I am thankful to all persons.
  WATANABE Hirofumi, Jperl
  http://search.cpan.org/~watanabe/
  ftp://ftp.oreilly.co.jp/pcjp98/watanabe/jperlconf.ppt
+
+ Kenichi Ishigaki, Pod-PerldocJp, Welcome to modern Perl world
+ http://search.cpan.org/dist/Pod-PerldocJp/
+ http://gihyo.jp/dev/serial/01/modern-perl/0031
+ http://gihyo.jp/dev/serial/01/modern-perl/0032
 
  Dan Kogai, Encode module
  http://search.cpan.org/dist/Encode/
