@@ -1,0 +1,27 @@
+# This file is encoded in INFORMIX V6 ALS.
+die "This file is not encoded in INFORMIX V6 ALS.\n" if q{あ} ne "\x82\xa0";
+
+use INFORMIXV6ALS;
+print "1..2\n";
+
+# 控えめな量指定子を含むパターン (例えば C<.??>やC<\d*?>) は、
+# 空文字列とマッチすることができますが、C<jsplit()> のパターンとして用いた場合、
+# 組み込みの C<split()> から予想される動作と異なることがあります。
+
+if (join('', map {"($_)"} split(/.??/, 'アイウ')) eq '(ア)(イ)(ウ)') {
+    print "ok - 1 $^X 05sadahiro.pl (join('', map {qq{($_)}} split(/.??/, 'アイウ')) eq '(ア)(イ)(ウ)')\n";
+}
+else {
+    print "not ok - 1 $^X 05sadahiro.pl (join('', map {qq{($_)}} split(/.??/, 'アイウ')) eq '(ア)(イ)(ウ)')\n";
+}
+
+if (join('', map {"($_)"} split(/\d*?/, 'アイウ')) eq '(ア)(イ)(ウ)') {
+    print "ok - 2 $^X 05sadahiro.pl (join('', map {qq{($_)}} split(/\\d*?/, 'アイウ')) eq '(ア)(イ)(ウ)')\n";
+}
+else {
+    print "not ok - 2 $^X 05sadahiro.pl (join('', map {qq{($_)}} split(/\\d*?/, 'アイウ')) eq '(ア)(イ)(ウ)')\n";
+}
+
+__END__
+
+http://search.cpan.org/dist/INFORMIX V6 ALS-Regexp/
