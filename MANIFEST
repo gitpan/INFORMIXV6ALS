@@ -1,5 +1,5 @@
-lib/INFORMIXV6ALS.pm
-lib/Einformixv6als.pm
+INFORMIXV6ALS.pm
+Einformixv6als.pm
 perl58.bat
 perl510.bat
 perl512.bat
