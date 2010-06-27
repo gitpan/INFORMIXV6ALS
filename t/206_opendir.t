@@ -7,7 +7,7 @@ use INFORMIXV6ALS;
 print "1..1\n";
 
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    print "ok - 1 # SKIP $^X $0\n";
+    print "ok - 1 # SKIP $^X $__FILE__\n";
     exit;
 }
 
@@ -34,14 +34,14 @@ if (opendir(DIR,$_)) {
     my @file = readdir(DIR);
     closedir DIR;
     if (@file >= 1) {
-        print "ok - 1 02opendir.pl $^X $__FILE__\n";
+        print "ok - 1 $^X $__FILE__\n";
     }
     else {
-        print "not ok - 1 02opendir.pl $^X $__FILE__\n";
+        print "not ok - 1 $^X $__FILE__\n";
     }
 }
 else {
-    print "not ok - 1 02opendir.pl $^X $__FILE__\n";
+    print "not ok - 1 $^X $__FILE__\n";
 }
 
 unlink('F‹@”\');

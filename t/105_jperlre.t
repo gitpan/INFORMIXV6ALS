@@ -4,11 +4,13 @@ die "This file is not encoded in INFORMIX V6 ALS.\n" if q{‚ } ne "\x82\xa0";
 use INFORMIXV6ALS;
 print "1..1\n";
 
+my $__FILE__ = __FILE__;
+
 if ('‚ ‚¢x' =~ /(‚ ‚¢‚¤)/) {
-    print "not ok - 1 $^X jperlre004.pl not ('‚ ‚¢x' =~ /‚ ‚¢‚¤/).\n";
+    print "not ok - 1 $^X $__FILE__ not ('‚ ‚¢x' =~ /‚ ‚¢‚¤/).\n";
 }
 else {
-    print "ok - 1 $^X jperlre004.pl not ('‚ ‚¢x' =~ /‚ ‚¢‚¤/).\n";
+    print "ok - 1 $^X $__FILE__ not ('‚ ‚¢x' =~ /‚ ‚¢‚¤/).\n";
 }
 
 __END__

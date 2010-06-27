@@ -6,10 +6,10 @@ print "1..1\n";
 
 # エラーにはならないけど文字化けする（５）
 if (lc('アイウエオ') eq 'アイウエオ') {
-    print "not ok - 1 lc('アイウエオ') eq 'アイウエオ'\n";
+    print "ok - 1 lc('アイウエオ') eq 'アイウエオ'\n";
 }
 else {
-    print "ok - 1 lc('アイウエオ') eq 'アイウエオ'\n";
+    print "not ok - 1 lc('アイウエオ') eq 'アイウエオ'\n";
 }
 
 __END__

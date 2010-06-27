@@ -7,6 +7,8 @@ use strict;
 use INFORMIXV6ALS;
 print "1..1\n";
 
+my $__FILE__ = __FILE__;
+
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
     print "ok - 1 # SKIP $^X $0\n";
     exit;
@@ -19,10 +21,10 @@ close(FILE);
 
 my($fileName) = glob("./hoge/*");
 if ($fileName =~ /ソース/) {
-    print "ok - 1 $^X $0\n";
+    print "ok - 1 $^X $__FILE__\n";
 }
 else {
-    print "not ok - 1 $^X $0\n";
+    print "not ok - 1 $^X $__FILE__\n";
 }
 
 unlink('hoge/テストソース.txt');
@@ -35,8 +37,8 @@ __END__
 ◆その１：コードはshiftjis、処理はshiftjis、標準入出力はshiftjis
 
 実行結果
-C:\test>perl kanji00.pl
-Unmatched [ in regex; marked by <-- HERE in m/メ[ <-- HERE ス/ at kanji00.pl line 6.
+C:\test>perl $0
+Unmatched [ in regex; marked by <-- HERE in m/メ[ <-- HERE ス/ at $0 line 6.
 
 しかし、上記ではマッチしません。
 というか、正規表現エラーになります。

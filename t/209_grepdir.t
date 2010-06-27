@@ -4,9 +4,11 @@ die "This file is not encoded in INFORMIX V6 ALS.\n" if q{あ} ne "\x82\xa0";
 use INFORMIXV6ALS;
 print "1..2\n";
 
+my $__FILE__ = __FILE__;
+
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    print "ok - 1 # SKIP $^X $0\n";
-    print "ok - 2 # SKIP $^X $0\n";
+    print "ok - 1 # SKIP $^X $__FILE__\n";
+    print "ok - 2 # SKIP $^X $__FILE__\n";
     exit;
 }
 
@@ -92,30 +94,28 @@ open(FILE,">01grepdir.pl") || die "Can't open file: 01grepdir.pl\n";
 print FILE <DATA>;
 close(FILE);
 
-for my $perlbin ($^X) {
-    $_ = `$perlbin 01grepdir.pl aaa dt 2>NUL`;
-    sleep 1;
-    if ($_ eq $aaa) {
-        print "ok - 1 $perlbin 01grepdir.pl aaa dt \n";
-    }
-    else {
-        print "not ok - 1 $perlbin 01grepdir.pl aaa dt \n";
-        print "($_)\n";
-        print "($aaa)\n";
-    }
-
-    $_ = `$perlbin 01grepdir.pl 表 dt 2>NUL`;
-    sleep 1;
-    if ($_ eq $hyou) {
-        print "ok - 2 $perlbin 01grepdir.pl 表 dt\n";
-    }
-    else {
-        print "not ok - 2 $perlbin 01grepdir.pl 表 dt\n";
-        print "($_)\n";
-        print "($hyou)\n";
-    }
-    sleep 1;
+$_ = `$^X 01grepdir.pl aaa dt 2>NUL`;
+sleep 1;
+if ($_ eq $aaa) {
+    print "ok - 1 $^X $__FILE__ aaa dt \n";
 }
+else {
+    print "not ok - 1 $^X $__FILE__ aaa dt \n";
+    print "($_)\n";
+    print "($aaa)\n";
+}
+
+$_ = `$^X 01grepdir.pl 表 dt 2>NUL`;
+sleep 1;
+if ($_ eq $hyou) {
+    print "ok - 2 $^X $__FILE__ 表 dt\n";
+}
+else {
+    print "not ok - 2 $^X $__FILE__ 表 dt\n";
+    print "($_)\n";
+    print "($hyou)\n";
+}
+sleep 1;
 
 unlink('01grepdir.pl');
 unlink('01grepdir.pl.e');

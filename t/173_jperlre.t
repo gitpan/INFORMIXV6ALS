@@ -1,11 +1,13 @@
 use INFORMIXV6ALS;
 print "1..1\n";
 
+my $__FILE__ = __FILE__;
+
 if ('-' =~ /([\d])/) {
-    print "not ok - 1 $^X jperlre072.pl not ('-' =~ /[\d]/).\n";
+    print "not ok - 1 $^X $__FILE__ not ('-' =~ /[\d]/).\n";
 }
 else {
-    print "ok - 1 $^X jperlre072.pl not ('-' =~ /[\d]/).\n";
+    print "ok - 1 $^X $__FILE__ not ('-' =~ /[\d]/).\n";
 }
 
 __END__

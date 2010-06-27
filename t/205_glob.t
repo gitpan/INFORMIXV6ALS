@@ -6,8 +6,10 @@ my $__FILE__ = __FILE__;
 use INFORMIXV6ALS;
 print "1..1\n";
 
+my $__FILE__ = __FILE__;
+
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    print "ok - 1 # SKIP $^X $0\n";
+    print "ok - 1 # SKIP $^X $__FILE__\n";
     exit;
 }
 
@@ -32,14 +34,14 @@ mkdir('D機能/D機能', 0777);
 my @file = glob('./*');
 if (grep(/F機能/, @file)) {
     if (grep(/D機能/, @file)) {
-        print "ok - 1 01glob.pl $^X $__FILE__\n";
+        print "ok - 1 $^X $__FILE__\n";
     }
     else {
-        print "not ok - 1 01glob.pl $^X $__FILE__\n";
+        print "not ok - 1 $^X $__FILE__\n";
     }
 }
 else {
-    print "not ok - 1 01glob.pl $^X $__FILE__\n";
+    print "not ok - 1 $^X $__FILE__\n";
 }
 
 unlink('F機能');

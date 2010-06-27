@@ -7,12 +7,12 @@ use INFORMIXV6ALS;
 print "1..6\n";
 
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    print "ok - 1 # SKIP $^X $0\n";
-    print "ok - 2 # SKIP $^X $0\n";
-    print "ok - 3 # SKIP $^X $0\n";
-    print "ok - 4 # SKIP $^X $0\n";
-    print "ok - 5 # SKIP $^X $0\n";
-    print "ok - 6 # SKIP $^X $0\n";
+    print "ok - 1 # SKIP $^X $__FILE__\n";
+    print "ok - 2 # SKIP $^X $__FILE__\n";
+    print "ok - 3 # SKIP $^X $__FILE__\n";
+    print "ok - 4 # SKIP $^X $__FILE__\n";
+    print "ok - 5 # SKIP $^X $__FILE__\n";
+    print "ok - 6 # SKIP $^X $__FILE__\n";
     exit;
 }
 
@@ -40,52 +40,52 @@ $_ = 'F機能';
 
 $filetest = -d $_;
 if ($filetest) {
-    print "not ok - 1 04filetest.pl (1/6) $^X $__FILE__\n";
+    print "not ok - 1 $^X $__FILE__\n";
 }
 else {
-    print "ok - 1 04filetest.pl (1/6) $^X $__FILE__\n";
+    print "ok - 1 $^X $__FILE__\n";
 }
 
 $filetest = -f $_;
 if ($filetest) {
-    print "ok - 2 04filetest.pl (2/6) $^X $__FILE__\n";
+    print "ok - 2 $^X $__FILE__\n";
 }
 else {
-    print "not ok - 2 04filetest.pl (2/6) $^X $__FILE__\n";
+    print "not ok - 2 $^X $__FILE__\n";
 }
 
 $filetest = -e $_;
 if ($filetest) {
-    print "ok - 3 04filetest.pl (3/6) $^X $__FILE__\n";
+    print "ok - 3 $^X $__FILE__\n";
 }
 else {
-    print "not ok - 3 04filetest.pl (3/6) $^X $__FILE__\n";
+    print "not ok - 3 $^X $__FILE__\n";
 }
 
 $_ = 'D機能';
 
 $filetest = -d $_;
 if ($filetest) {
-    print "ok - 4 04filetest.pl (4/6) $^X $__FILE__\n";
+    print "ok - 4 $^X $__FILE__\n";
 }
 else {
-    print "not ok - 4 04filetest.pl (4/6) $^X $__FILE__\n";
+    print "not ok - 4 $^X $__FILE__\n";
 }
 
 $filetest = -f $_;
 if ($filetest) {
-    print "not ok - 5 04filetest.pl (5/6) $^X $__FILE__\n";
+    print "not ok - 5 $^X $__FILE__\n";
 }
 else {
-    print "ok - 5 04filetest.pl (5/6) $^X $__FILE__\n";
+    print "ok - 5 $^X $__FILE__\n";
 }
 
 $filetest = -e $_;
 if ($filetest) {
-    print "ok - 6 04filetest.pl (6/6) $^X $__FILE__\n";
+    print "ok - 6 $^X $__FILE__\n";
 }
 else {
-    print "not ok - 6 04filetest.pl (6/6) $^X $__FILE__\n";
+    print "not ok - 6 $^X $__FILE__\n";
 }
 
 unlink('F機能');

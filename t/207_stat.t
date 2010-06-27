@@ -7,8 +7,8 @@ use INFORMIXV6ALS;
 print "1..2\n";
 
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    print "ok - 1 # SKIP $^X $0\n";
-    print "ok - 2 # SKIP $^X $0\n";
+    print "ok - 1 # SKIP $^X $__FILE__\n";
+    print "ok - 2 # SKIP $^X $__FILE__\n";
     exit;
 }
 
@@ -32,18 +32,18 @@ mkdir('D機能/D機能', 0777);
 
 $_ = 'F機能';
 if (@_ = stat($_)) {
-    print "ok - 1 03stat.pl (1/2) $^X $__FILE__\n";
+    print "ok - 1 $^X $__FILE__\n";
 }
 else{
-    print "not ok - 1 03stat.pl (1/2) $^X $__FILE__\n";
+    print "not ok - 1 $^X $__FILE__\n";
 }
 
 $_ = 'D機能';
 if (@_ = stat($_)) {
-    print "not ok - 2 03stat.pl (2/2) $^X $__FILE__\n";
+    print "not ok - 2 $^X $__FILE__\n";
 }
 else{
-    print "ok - 2 03stat.pl (2/2) $^X $__FILE__\n";
+    print "ok - 2 $^X $__FILE__\n";
 }
 
 unlink('F機能');
