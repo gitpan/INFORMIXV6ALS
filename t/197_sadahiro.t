@@ -9,10 +9,10 @@ my $__FILE__ = __FILE__;
 # 単語境界を扱うメタ文字 C<\b> および C<\B> は正しく動作しません。
 
 if ('ABC アDEF GHI' =~ /\bDEF/) {
-    print "ok - 1 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF/)\n";
+    print "not ok - 1 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF/)\n";
 }
 else {
-    print "not ok - 1 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF/)\n";
+    print "ok - 1 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF/)\n";
 }
 
 if ('ABC アDEF GHI' =~ /DEF\b/) {
@@ -23,10 +23,10 @@ else {
 }
 
 if ('ABC アDEF GHI' =~ /\bDEF\b/) {
-    print "ok - 3 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF\\b/)\n";
+    print "not ok - 3 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF\\b/)\n";
 }
 else {
-    print "not ok - 3 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF\\b/)\n";
+    print "ok - 3 $^X $__FILE__ ('ABC アDEF GHI' =~ /\\bDEF\\b/)\n";
 }
 
 if ('ABC アDEF GHI' =~ /\bABC/) {

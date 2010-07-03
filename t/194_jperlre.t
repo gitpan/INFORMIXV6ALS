@@ -7,10 +7,10 @@ print "1..6\n";
 my $__FILE__ = __FILE__;
 
 if ('アABC DEF GHI' =~ /\bABC/) {
-    print "ok - 1 $^X $__FILE__ ('アABC DEF GHI' =~ /\\bABC/)\n";
+    print "not ok - 1 $^X $__FILE__ ('アABC DEF GHI' =~ /\\bABC/)\n";
 }
 else {
-    print "not ok - 1 $^X $__FILE__ ('アABC DEF GHI' =~ /\\bABC/)\n";
+    print "ok - 1 $^X $__FILE__ ('アABC DEF GHI' =~ /\\bABC/)\n";
 }
 
 if ('アABC DEF GHI' =~ /\bDEF/) {

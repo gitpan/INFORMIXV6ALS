@@ -23,7 +23,7 @@ BEGIN {
 
 BEGIN { eval q{ use vars qw($VERSION $_warning) } }
 
-$VERSION = sprintf '%d.%02d', q$Revision: 0.60 $ =~ m/(\d+)/xmsg;
+$VERSION = sprintf '%d.%02d', q$Revision: 0.62 $ =~ m/(\d+)/xmsg;
 
 # poor Symbol.pm - substitute of real Symbol.pm
 BEGIN {
@@ -809,23 +809,18 @@ sub Einformixv6als::rindex($$;$) {
 # INFORMIX V6 ALS regexp capture
 #
 {
-###if MULTIBYTE_ANCHORING
     # 10.3. Creating Persistent Private Variables
     # in Chapter 10. Subroutines
     # of ISBN 0-596-00313-7 Perl Cookbook, 2nd Edition.
 
     my $last_s_matched = 0;
 
-###endif
     sub Einformixv6als::capture($) {
-###if MULTIBYTE_ANCHORING
         if ($last_s_matched and ($_[0] =~ m/\A [1-9][0-9]* \z/oxms)) {
             return $_[0] + 1;
         }
-###endif
         return $_[0];
     }
-###if MULTIBYTE_ANCHORING
 
     # INFORMIX V6 ALS regexp mark last m// or qr// matched
     sub Einformixv6als::m_matched() {
@@ -845,7 +840,6 @@ sub Einformixv6als::rindex($$;$) {
 
     @Einformixv6als::m_matched = (qr/(?{Einformixv6als::m_matched})/);
     @Einformixv6als::s_matched = (qr/(?{Einformixv6als::s_matched})/);
-###endif
 }
 
 #
@@ -974,10 +968,10 @@ sub Einformixv6als::ignorecase(@) {
                 # of ISBN 0-596-00289-0 Mastering Regular Expressions, Second edition
 
                 # '\b' => '(?:(?<=\A|\W)(?=\w)|(?<=\w)(?=\W|\z))',
-                '\b' => '(?:(?:\A|(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=[0-9A-Z_a-z])|(?<=[0-9A-Z_a-z])(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]|\z))',
+                '\b' => '(?:\A(?=[0-9A-Z_a-z])|(?<=[\x00-\x2F\x40\x5B-\x5E\x60\x7B-\xFF])(?=[0-9A-Z_a-z])|(?<=[0-9A-Z_a-z])(?=[\x00-\x2F\x40\x5B-\x5E\x60\x7B-\xFF]|\z))',
 
                 # '\B' => '(?:(?<=\w)(?=\w)|(?<=\W)(?=\W))',
-                '\B' => '(?:(?<=[0-9A-Z_a-z])(?=[0-9A-Z_a-z])|(?:(?<=\xFD[\xA1-\xFE][\xA1-\xFE])|(?<=[\x81-\x9F\xE0-\xFC][\x00-\xFF])|(?<=[^0-9A-Z_a-z]))(?=\xFD[\xA1-\xFE][\xA1-\xFE]|[\x81-\x9F\xE0-\xFC][\x00-\xFF]|[^0-9A-Z_a-z]))',
+                '\B' => '(?:(?<=[0-9A-Z_a-z])(?=[0-9A-Z_a-z])|(?<=[\x00-\x2F\x40\x5B-\x5E\x60\x7B-\xFF])(?=[\x00-\x2F\x40\x5B-\x5E\x60\x7B-\xFF]))',
 
                 }->{$char[$i]}
             ) {
