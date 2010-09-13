@@ -23,7 +23,7 @@ BEGIN {
 
 BEGIN { eval q{ use vars qw($VERSION $_warning) } }
 
-$VERSION = sprintf '%d.%02d', q$Revision: 0.63 $ =~ m/(\d+)/xmsg;
+$VERSION = sprintf '%d.%02d', q$Revision: 0.64 $ =~ m/(\d+)/xmsg;
 
 # poor Symbol.pm - substitute of real Symbol.pm
 BEGIN {
@@ -262,8 +262,12 @@ sub Einformixv6als::tr($$$$;$);
 sub Einformixv6als::chop(@);
 sub Einformixv6als::index($$;$);
 sub Einformixv6als::rindex($$;$);
+sub Einformixv6als::lcfirst(@);
+sub Einformixv6als::lcfirst_();
 sub Einformixv6als::lc(@);
 sub Einformixv6als::lc_();
+sub Einformixv6als::ucfirst(@);
+sub Einformixv6als::ucfirst_();
 sub Einformixv6als::uc(@);
 sub Einformixv6als::uc_();
 sub Einformixv6als::capture($);
@@ -714,6 +718,27 @@ sub Einformixv6als::rindex($$;$) {
         );
     }
 
+    # lower case first with parameter
+    sub Einformixv6als::lcfirst(@) {
+        if (@_) {
+            my $s = shift @_;
+            if (@_ and wantarray) {
+                return Einformixv6als::lc(CORE::substr($s,0,1)) . CORE::substr($s,1), @_;
+            }
+            else {
+                return Einformixv6als::lc(CORE::substr($s,0,1)) . CORE::substr($s,1);
+            }
+        }
+        else {
+            return Einformixv6als::lc(CORE::substr($_,0,1)) . CORE::substr($_,1);
+        }
+    }
+
+    # lower case first without parameter
+    sub Einformixv6als::lcfirst_() {
+        return Einformixv6als::lc(CORE::substr($_,0,1)) . CORE::substr($_,1);
+    }
+
     # lower case with parameter
     sub Einformixv6als::lc(@) {
         if (@_) {
@@ -780,6 +805,27 @@ sub Einformixv6als::rindex($$;$) {
             "\xFD" => "\xDD", # LATIN LETTER Y WITH ACUTE
             "\xFE" => "\xDE", # LATIN LETTER THORN (Icelandic)
         );
+    }
+
+    # upper case first with parameter
+    sub Einformixv6als::ucfirst(@) {
+        if (@_) {
+            my $s = shift @_;
+            if (@_ and wantarray) {
+                return Einformixv6als::uc(CORE::substr($s,0,1)) . CORE::substr($s,1), @_;
+            }
+            else {
+                return Einformixv6als::uc(CORE::substr($s,0,1)) . CORE::substr($s,1);
+            }
+        }
+        else {
+            return Einformixv6als::uc(CORE::substr($_,0,1)) . CORE::substr($_,1);
+        }
+    }
+
+    # upper case first without parameter
+    sub Einformixv6als::ucfirst_() {
+        return Einformixv6als::uc(CORE::substr($_,0,1)) . CORE::substr($_,1);
     }
 
     # upper case with parameter
@@ -4244,8 +4290,12 @@ Einformixv6als - Run-time routines for INFORMIXV6ALS.pm
     Einformixv6als::rindex(...);
     Einformixv6als::lc(...);
     Einformixv6als::lc_;
+    Einformixv6als::lcfirst(...);
+    Einformixv6als::lcfirst_;
     Einformixv6als::uc(...);
     Einformixv6als::uc_;
+    Einformixv6als::ucfirst(...);
+    Einformixv6als::ucfirst_;
     Einformixv6als::capture(...);
     Einformixv6als::ignorecase(...);
     Einformixv6als::chr(...);
@@ -4390,6 +4440,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   Returns a lowercase version of INFORMIX V6 ALS string (or $_, if omitted). This is the
   internal function implementing the \L escape in double-quoted strings.
 
+=item Lower case first character of string
+
+  $lcfirst = Einformixv6als::lcfirst($string);
+  $lcfirst = Einformixv6als::lcfirst_;
+
+  Returns a version of INFORMIX V6 ALS string (or $_, if omitted) with the first character
+  lowercased. This is the internal function implementing the \l escape in double-
+  quoted strings.
+
 =item Upper case string
 
   $uc = Einformixv6als::uc($string);
@@ -4398,6 +4457,15 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   Returns an uppercased version of INFORMIX V6 ALS string (or $_, if string is omitted).
   This is the internal function implementing the \U escape in double-quoted
   strings.
+
+=item Upper case first character of string
+
+  $ucfirst = Einformixv6als::ucfirst($string);
+  $ucfirst = Einformixv6als::ucfirst_;
+
+  Returns a version of INFORMIX V6 ALS string (or $_, if omitted) with the first character
+  uppercased. This is the internal function implementing the \u escape in double-
+  quoted strings.
 
 =item Make capture number
 

@@ -1,6 +1,6 @@
 NAME
 
-       INFORMIXV6ALS - "Yet Another JPerl" Source code filter for INFORMIX V6 ALS script
+       INFORMIXV6ALS - Source code filter for INFORMIX V6 ALS script
 
 SYNOPSIS
 
@@ -18,7 +18,7 @@ SYNOPSIS
 
 DESCRIPTION
 
-      This software is "Yet Another JPerl" written by Perl.
+      This software is "JPerl on the Modern Perl" written by Perl.
       We can write the script in INFORMIX V6 ALS.
 
       This software treats INFORMIX V6 ALS directly. Therefore, there is not
