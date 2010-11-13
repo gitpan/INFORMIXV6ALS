@@ -52,12 +52,14 @@ To install this software without make, type the following:
 
 PROGRAM COMPOSITION
 
-   INFORMIXV6ALS.pm   --- source code filter for INFORMIX V6 ALS script
-   Einformixv6als.pm  --- run-time routines for INFORMIXV6ALS.pm
-   perl58.bat         --- find and run perl5.8  without %PATH% settings
-   perl510.bat        --- find and run perl5.10 without %PATH% settings
-   perl512.bat        --- find and run perl5.12 without %PATH% settings
-   perl64.bat         --- find and run perl64   without %PATH% settings
+   INFORMIXV6ALS.pm      --- source code filter for INFORMIX V6 ALS script
+   Einformixv6als.pm     --- run-time routines for INFORMIXV6ALS.pm
+   perl58.bat            --- find and run perl5.8  without %PATH% settings
+   perl510.bat           --- find and run perl5.10 without %PATH% settings
+   perl512.bat           --- find and run perl5.12 without %PATH% settings
+   perl64.bat            --- find and run perl64   without %PATH% settings
+   warnings.pm_          --- poor warnings.pm
+   warnings/register.pm_ --- poor warnings/register.pm
 
 DEPENDENCIES
 
