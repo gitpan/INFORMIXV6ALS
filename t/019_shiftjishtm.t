@@ -4,6 +4,8 @@ die "This file is not encoded in INFORMIX V6 ALS.\n" if q{あ} ne "\x82\xa0";
 use INFORMIXV6ALS;
 print "1..1\n";
 
+$_ = '';
+
 # Search pattern not terminated
 # 「サーチパターンが終了しない」
 eval { /表/ };

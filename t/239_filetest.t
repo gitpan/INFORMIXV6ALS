@@ -6,10 +6,10 @@ die "This file is not encoded in INFORMIX V6 ALS.\n" if q{‚ } ne "\x82\xa0";
 my $__FILE__ = __FILE__;
 
 use Einformixv6als;
-print "1..26\n";
+print "1..22\n";
 
 if ($^O !~ /\A (?: MSWin32 | NetWare | symbian | dos ) \z/oxms) {
-    for my $tno (1..26) {
+    for my $tno (1..22) {
         print "ok - $tno # SKIP $^X $0\n";
     }
     exit;
@@ -138,68 +138,39 @@ else {
     print "not ok - 17 Einformixv6als::c 'directory' == -c 'directory' $^X $__FILE__\n";
 }
 
-local $^W = 0;
-if (((Einformixv6als::t 'directory') ne '') == ((-t 'directory') ne '')) {
-    print "ok - 18 Einformixv6als::t 'directory' == -t 'directory' $^X $__FILE__\n";
-}
-else {
-    print "not ok - 18 Einformixv6als::t 'directory' == -t 'directory' $^X $__FILE__\n";
-}
-
 if (((Einformixv6als::u 'directory') ne '') == ((-u 'directory') ne '')) {
-    print "ok - 19 Einformixv6als::u 'directory' == -u 'directory' $^X $__FILE__\n";
+    print "ok - 18 Einformixv6als::u 'directory' == -u 'directory' $^X $__FILE__\n";
 }
 else {
-    print "not ok - 19 Einformixv6als::u 'directory' == -u 'directory' $^X $__FILE__\n";
+    print "not ok - 18 Einformixv6als::u 'directory' == -u 'directory' $^X $__FILE__\n";
 }
 
 if (((Einformixv6als::g 'directory') ne '') == ((-g 'directory') ne '')) {
-    print "ok - 20 Einformixv6als::g 'directory' == -g 'directory' $^X $__FILE__\n";
+    print "ok - 19 Einformixv6als::g 'directory' == -g 'directory' $^X $__FILE__\n";
 }
 else {
-    print "not ok - 20 Einformixv6als::g 'directory' == -g 'directory' $^X $__FILE__\n";
-}
-
-if (((Einformixv6als::k 'directory') ne '') == ((-k 'directory') ne '')) {
-    print "ok - 21 Einformixv6als::k 'directory' == -k 'directory' $^X $__FILE__\n";
-}
-else {
-    print "not ok - 21 Einformixv6als::k 'directory' == -k 'directory' $^X $__FILE__\n";
-}
-
-if (((Einformixv6als::T 'directory') ne '') == ((-T 'directory') ne '')) {
-    print "ok - 22 Einformixv6als::T 'directory' == -T 'directory' $^X $__FILE__\n";
-}
-else {
-    print "not ok - 22 Einformixv6als::T 'directory' == -T 'directory' $^X $__FILE__\n";
-}
-
-if (((Einformixv6als::B 'directory') ne '') == ((-B 'directory') ne '')) {
-    print "ok - 23 Einformixv6als::B 'directory' == -B 'directory' $^X $__FILE__\n";
-}
-else {
-    print "not ok - 23 Einformixv6als::B 'directory' == -B 'directory' $^X $__FILE__\n";
+    print "not ok - 19 Einformixv6als::g 'directory' == -g 'directory' $^X $__FILE__\n";
 }
 
 if (((Einformixv6als::M 'directory') ne '') == ((-M 'directory') ne '')) {
-    print "ok - 24 Einformixv6als::M 'directory' == -M 'directory' $^X $__FILE__\n";
+    print "ok - 20 Einformixv6als::M 'directory' == -M 'directory' $^X $__FILE__\n";
 }
 else {
-    print "not ok - 24 Einformixv6als::M 'directory' == -M 'directory' $^X $__FILE__\n";
+    print "not ok - 20 Einformixv6als::M 'directory' == -M 'directory' $^X $__FILE__\n";
 }
 
 if (((Einformixv6als::A 'directory') ne '') == ((-A 'directory') ne '')) {
-    print "ok - 25 Einformixv6als::A 'directory' == -A 'directory' $^X $__FILE__\n";
+    print "ok - 21 Einformixv6als::A 'directory' == -A 'directory' $^X $__FILE__\n";
 }
 else {
-    print "not ok - 25 Einformixv6als::A 'directory' == -A 'directory' $^X $__FILE__\n";
+    print "not ok - 21 Einformixv6als::A 'directory' == -A 'directory' $^X $__FILE__\n";
 }
 
 if (((Einformixv6als::C 'directory') ne '') == ((-C 'directory') ne '')) {
-    print "ok - 26 Einformixv6als::C 'directory' == -C 'directory' $^X $__FILE__\n";
+    print "ok - 22 Einformixv6als::C 'directory' == -C 'directory' $^X $__FILE__\n";
 }
 else {
-    print "not ok - 26 Einformixv6als::C 'directory' == -C 'directory' $^X $__FILE__\n";
+    print "not ok - 22 Einformixv6als::C 'directory' == -C 'directory' $^X $__FILE__\n";
 }
 
 closedir(DIR);
